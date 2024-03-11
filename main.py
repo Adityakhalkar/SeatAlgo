@@ -12,7 +12,7 @@ category = st.selectbox(
     index=None,
     placeholder="Select Category",
 )
-st.write("You selected:", option)
+st.write("You selected:", category)
 branch = st.multiselect(
     "Enter your preferred branch",
     df['branch_name'].unique(),
