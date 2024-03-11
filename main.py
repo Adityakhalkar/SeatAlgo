@@ -8,7 +8,7 @@ percentile = st.number_input("MHT-CET Percentile", value=None, placeholder="Ente
 Merit = st.number_input("MHT-CET Merit No.", value=None, placeholder="Enter your Merit Number")
 category = st.selectbox(
     "Select your Category: ",
-    df['category'].unique(),
+    df['Category'].unique(),
     index=None,
     placeholder="Select Category",
 )
