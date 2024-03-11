@@ -26,7 +26,7 @@ def load_data(colleges):
         }
     )
 if st.button("Submit", type = "primary"):
-    colleges = df['institute_code'][(df['Merit No.'] < Merit) & (df['MHT-CET Score'] > percentile)].unique()
+    colleges = df['institute_code'][(df['Merit No.'] < Merit) & (df['MHT-CET Score'] > percentile) & (df['Category'] == category)].unique()
     data_df = load_data(colleges)
 
     st.data_editor(
