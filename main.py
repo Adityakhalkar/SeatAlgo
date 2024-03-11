@@ -2,6 +2,9 @@
 import streamlit as st
 import pandas as pd
 df = pd.read_csv('final_df2.csv')
+institute_names = pd.read_csv('institute codes.csv')
+institute_mapping = institute_names.set_index('code')['name'].to_dict()
+df['Institute Name'] = df['institute_code'].map(institute_mapping)
 st.title("Seat Algo")
 
 percentile = st.number_input("MHT-CET Percentile", value=None, placeholder="Enter your MHT-CET percentile")
@@ -26,7 +29,7 @@ def load_data(colleges):
         }
     )
 if st.button("Submit", type = "primary"):
-    colleges = df['institute_code'][(df['Merit No.'] < Merit) & (df['MHT-CET Score'] > percentile) & (df['Category'] == category)].unique()
+    colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['MHT-CET Score'] > percentile) & (df['Category'] == category)].unique()
     data_df = load_data(colleges)
 
     st.data_editor(
