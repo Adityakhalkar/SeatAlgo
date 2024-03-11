@@ -6,7 +6,13 @@ st.title("Seat Algo")
 
 percentile = st.number_input("MHT-CET Percentile", value=None, placeholder="Enter your MHT-CET percentile")
 Merit = st.number_input("MHT-CET Merit No.", value=None, placeholder="Enter your Merit Number")
-
+category = st.selectbox(
+    "Select your Category: ",
+    df['category'].unique(),
+    index=None,
+    placeholder="Select Category",
+)
+st.write("You selected:", option)
 branch = st.multiselect(
     "Enter your preferred branch",
     df['branch_name'].unique(),
