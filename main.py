@@ -1,6 +1,7 @@
 # contents to be added here
 import streamlit as st
 import pandas as pd
+import numpy as np
 df = pd.read_csv('final_df2.csv')
 institute_names = pd.read_csv('institute codes.csv')
 institute_mapping = institute_names.set_index('code')['name'].to_dict()
@@ -11,7 +12,7 @@ percentile = st.number_input("MHT-CET Percentile", value=None, placeholder="Ente
 Merit = st.number_input("MHT-CET Merit No.", value=None, placeholder="Enter your Merit Number")
 category = st.selectbox(
     "Select your Category: ",
-    df['Category'].unique(),
+    np.sort(df['Category'].unique()),
     index=None,
     placeholder="Select Category",
 )
@@ -29,7 +30,7 @@ def load_data(colleges):
         }
     )
 if st.button("Submit", type = "primary"):
-    colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['MHT-CET Score'] > percentile) & (df['Category'] == category)].unique()
+    colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['MHT-CET Score'] < percentile) & (df['Category'] == category)].unique()
     data_df = load_data(colleges)
 
     st.data_editor(
