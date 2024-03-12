@@ -30,35 +30,35 @@ if percentile is not None:
     index=None,
     placeholder="Select Category",
 )
-st.write("You selected:", category)
-branch = st.multiselect(
-    "Enter your preferred branch",
-    np.sort(df['branch_name'].unique()),
-    max_selections = 5
-)
-@st.cache_data
-def load_data(colleges):
-    return pd.DataFrame(
-        {
-            "Allotable Institutes": colleges,
-        }
+    st.write("You selected:", category)
+    branch = st.multiselect(
+        "Enter your preferred branch",
+        np.sort(df['branch_name'].unique()),
+        max_selections = 5
     )
-if st.button("Submit", type = "primary"):
-    colleges = df['Institute Name'][(df['MHT-CET Score'] < percentile) & (df['Category'] == category) & (df['branch_name'].isin(branch))].unique()
-    data_df = load_data(colleges)
-    st.data_editor(
-        data_df,
-        column_config={
-            "Allotable Colleges": st.column_config.TextColumn(
-                "Allotable Colleges",
-                help="Streamlit **widget** commands 🎈",
-                default="st.",
-                max_chars=50,
-                validate="^st\.[a-z_]+$",
-            )
-        },
-        hide_index=True,
-    )
+    @st.cache_data
+    def load_data(colleges):
+        return pd.DataFrame(
+            {
+                "Allotable Institutes": colleges,
+            }
+        )
+    if st.button("Submit", type = "primary"):
+        colleges = df['Institute Name'][(df['MHT-CET Score'] < percentile) & (df['Category'] == category) & (df['branch_name'].isin(branch))].unique()
+        data_df = load_data(colleges)
+        st.data_editor(
+            data_df,
+            column_config={
+                "Allotable Colleges": st.column_config.TextColumn(
+                    "Allotable Colleges",
+                    help="Streamlit **widget** commands 🎈",
+                    default="st.",
+                    max_chars=50,
+                    validate="^st\.[a-z_]+$",
+                )
+            },
+            hide_index=True,
+        )
 elif Merit is not None:
     category = st.selectbox(
     "Select your Category: ",
@@ -66,34 +66,34 @@ elif Merit is not None:
     index=None,
     placeholder="Select Category",
 )
-st.write("You selected:", category)
-branch = st.multiselect(
-    "Enter your preferred branch",
-    np.sort(df['branch_name'].unique()),
-    max_selections = 5
-)
-@st.cache_data
-def load_data(colleges):
-    return pd.DataFrame(
-        {
-            "Allotable Institutes": colleges,
-        }
+    st.write("You selected:", category)
+    branch = st.multiselect(
+        "Enter your preferred branch",
+        np.sort(df['branch_name'].unique()),
+        max_selections = 5
     )
-if st.button("Submit", type = "primary"):
-    colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['Category'] == category) & (df['branch_name'].isin(branch))].unique()
-    data_df = load_data(colleges)
-    st.data_editor(
-        data_df,
-        column_config={
-            "Allotable Colleges": st.column_config.TextColumn(
-                "Allotable Colleges",
-                help="Streamlit **widget** commands 🎈",
-                default="st.",
-                max_chars=50,
-                validate="^st\.[a-z_]+$",
-            )
-        },
-        hide_index=True,
-    )
-else:
-    st.write("Please provide either MHT-CET percentile or Merit No.")
+    @st.cache_data
+    def load_data(colleges):
+        return pd.DataFrame(
+            {
+                "Allotable Institutes": colleges,
+            }
+        )
+    if st.button("Submit", type = "primary"):
+        colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['Category'] == category) & (df['branch_name'].isin(branch))].unique()
+        data_df = load_data(colleges)
+        st.data_editor(
+            data_df,
+            column_config={
+                "Allotable Colleges": st.column_config.TextColumn(
+                    "Allotable Colleges",
+                    help="Streamlit **widget** commands 🎈",
+                    default="st.",
+                    max_chars=50,
+                    validate="^st\.[a-z_]+$",
+                )
+            },
+            hide_index=True,
+        )
+    else:
+        st.write("Please provide either MHT-CET percentile or Merit No.")
