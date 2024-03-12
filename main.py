@@ -1,11 +1,13 @@
-# contents to be added here
 import streamlit as st
 import pandas as pd
 import numpy as np
+
+# Read data
 df = pd.read_csv('final_df2.csv')
 institute_names = pd.read_csv('institute codes.csv')
 institute_mapping = institute_names.set_index('code')['name'].to_dict()
 df['Institute Name'] = df['institute_code'].map(institute_mapping)
+
 st.title("Seat Algo")
 
 input_option = st.sidebar.radio("Choose Input Method", ("Percentile", "Merit No."))
@@ -25,75 +27,67 @@ if percentile is not None and Merit is not None:
 # Output based on user input
 if percentile is not None:
     category = st.selectbox(
-    "Select your Category: ",
-    df['Category'].unique(),
-    index=None,
-    placeholder="Select Category",
-)
+        "Select your Category: ",
+        df['Category'].unique(),
+        index=None,
+        placeholder="Select Category",
+    )
     st.write("You selected:", category)
     branch = st.multiselect(
         "Enter your preferred branch",
         np.sort(df['branch_name'].unique()),
-        max_selections = 5
+        max_selections=5
     )
-    @st.cache_data
-    def load_data(colleges):
-        return pd.DataFrame(
-            {
-                "Allotable Institutes": colleges,
-            }
-        )
-    if st.button("Submit", type = "primary"):
-        colleges = df['Institute Name'][(df['MHT-CET Score'] < percentile) & (df['Category'] == category) & (df['branch_name'].isin(branch))].unique()
-        data_df = load_data(colleges)
-        st.data_editor(
-            data_df,
-            column_config={
-                "Allotable Colleges": st.column_config.TextColumn(
-                    "Allotable Colleges",
-                    help="Streamlit **widget** commands 🎈",
-                    default="st.",
-                    max_chars=50,
-                    validate="^st\.[a-z_]+$",
-                )
-            },
-            hide_index=True,
-        )
+    if st.button("Submit", type="primary"):
+        colleges = df['Institute Name'][(df['MHT-CET Score'] < percentile) & (df['Category'] == category) & (
+                    df['branch_name'].isin(branch))].unique()
+        if len(colleges) == 0:
+            st.write("No colleges available.")
+        else:
+            st.write("Allotable Colleges:")
+            for college in colleges:
+                st.write(college)
+                if st.button(f"Show Location of {college}"):
+                    st.write(f"Fetching coordinates for {college}...")
+                    latitude, longitude = df.loc[df['Institute Name'] == college, ['latitude', 'longitude']].values[0]
+                    if latitude is not None and longitude is not None:
+                        map_url = f"https://www.openstreetmap.org/?mlat={latitude}&mlon={longitude}#map=15/{latitude}/{longitude}"
+                        st.markdown(f'<iframe width="800" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{map_url}"></iframe>',
+                                    unsafe_allow_html=True)
+                    else:
+                        st.error(f"Unable to find coordinates for {college}")
+
 elif Merit is not None:
     category = st.selectbox(
-    "Select your Category: ",
-    df['Category'].unique(),
-    index=None,
-    placeholder="Select Category",
-)
+        "Select your Category: ",
+        df['Category'].unique(),
+        index=None,
+        placeholder="Select Category",
+    )
     st.write("You selected:", category)
     branch = st.multiselect(
         "Enter your preferred branch",
         np.sort(df['branch_name'].unique()),
-        max_selections = 5
+        max_selections=5
     )
-    @st.cache_data
-    def load_data(colleges):
-        return pd.DataFrame(
-            {
-                "Allotable Institutes": colleges,
-            }
-        )
-    if st.button("Submit", type = "primary"):
-        colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['Category'] == category) & (df['branch_name'].isin(branch))].unique()
-        data_df = load_data(colleges)
-        st.data_editor(
-            data_df,
-            column_config={
-                "Allotable Colleges": st.column_config.TextColumn(
-                    "Allotable Colleges",
-                    help="Streamlit **widget** commands 🎈",
-                    default="st.",
-                    max_chars=50,
-                    validate="^st\.[a-z_]+$",
-                )
-            },
-            hide_index=True,
-        )
-    else:
-        st.write("Please provide either MHT-CET percentile or Merit No.")
+    if st.button("Submit", type="primary"):
+        colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['Category'] == category) & (
+                    df['branch_name'].isin(branch))].unique()
+        if len(colleges) == 0:
+            st.write("No colleges available.")
+        else:
+            st.write("Allotable Colleges:")
+            for college in colleges:
+                st.write(college)
+                if st.button(f"Show Location of {college}"):
+                    st.write(f"Fetching coordinates for {college}...")
+                    latitude, longitude = df.loc[df['Institute Name'] == college, ['latitude', 'longitude']].values[0]
+                    if latitude is not None and longitude is not None:
+                        map_url = f"https://www.openstreetmap.org/?mlat={latitude}&mlon={longitude}#map=15/{latitude}/{longitude}"
+                        st.markdown(f'<iframe width="800" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{map_url}"></iframe>',
+                                    unsafe_allow_html=True)
+                    else:
+                        st.error(f"Unable to find coordinates for {college}")
+
+else:
+    st.write("Please provide either MHT-CET percentile or Merit No.")
