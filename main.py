@@ -47,12 +47,12 @@ if percentile is not None:
             st.write("Allotable Colleges:")
             for college in colleges:
                 st.write(college)
-                if st.button(f"Show Location of {college}"):
-                    if st.button(f"Show info about {college}"):
+                if st.button(f"Show info about {college}"):
                         st.write(f"Redirecting to the Google search page for {college}...")
                         google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
                         js_redirect = f"window.open('{google_search_url}', '_blank')"
                         st.write(f'<script>{js_redirect}</script>', unsafe_allow_html=True)
+                    
 
 
 elif Merit is not None:
