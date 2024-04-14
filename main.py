@@ -48,7 +48,7 @@ if percentile is not None:
             for college in colleges:
                 st.write(college)
                 google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                st.markdown(f"[Show info about {college}]({google_search_url})")
+                st.info(f"[Show info about {college}]({google_search_url})")
 
 
 elif Merit is not None:
@@ -74,7 +74,7 @@ elif Merit is not None:
             for college in colleges:
                 st.write(college)
                 google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                st.markdown(f"[Show info about {college}]({google_search_url})")
+                st.info(f"[Show info about {college}]({google_search_url})")
 
 else:
     st.write("Please provide either MHT-CET percentile or Merit No.")
