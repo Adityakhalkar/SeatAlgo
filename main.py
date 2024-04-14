@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import webbrowser
 
 # Read data
 df = pd.read_csv('final_df2.csv')
@@ -50,8 +51,7 @@ if percentile is not None:
                 if st.button(f"Show info about {college}"):
                         st.write(f"Redirecting to the Google search page for {college}...")
                         google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                        js_redirect = f"window.open('{google_search_url}', '_blank')"
-                        st.write(f'<script>{js_redirect}</script>', unsafe_allow_html=True)
+                        webbrowser.open_new(google_search_url)
                     
 
 
