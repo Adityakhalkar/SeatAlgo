@@ -81,7 +81,7 @@ elif Merit is not None:
                     st.write(f"Redirecting to the Google search page for {college}...")
                     google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
                     js_redirect = f"window.open('{google_search_url}', '_blank')"
-                    st.write(f'<script>{js_redirect}</script>', unsafe_allow_html=True
+                    st.write(f'<script>{js_redirect}</script>', unsafe_allow_html=True)
 
 
 else:
