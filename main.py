@@ -48,14 +48,11 @@ if percentile is not None:
             for college in colleges:
                 st.write(college)
                 if st.button(f"Show Location of {college}"):
-                    st.write(f"Fetching coordinates for {college}...")
-                    latitude, longitude = df.loc[df['Institute Name'] == college, ['latitude', 'longitude']].values[0]
-                    if latitude is not None and longitude is not None:
-                        map_url = f"https://www.openstreetmap.org/?mlat={latitude}&mlon={longitude}#map=15/{latitude}/{longitude}"
-                        st.markdown(f'<iframe width="800" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{map_url}"></iframe>',
-                                    unsafe_allow_html=True)
-                    else:
-                        st.error(f"Unable to find coordinates for {college}")
+                    if st.button(f"Show info about {college}"):
+                        st.write(f"Redirecting to the Google search page for {college}...")
+                        google_search_url = f"https://www.google.com/search?q={college}"
+                        st.markdown(f'<a href="{google_search_url}" target="_blank">Click here for more info</a>', unsafe_allow_html=True)
+
 
 elif Merit is not None:
     category = st.selectbox(
