@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import webbrowser
 
 # Read data
 df = pd.read_csv('final_df2.csv')
@@ -48,10 +47,9 @@ if percentile is not None:
             st.write("Allotable Colleges:")
             for college in colleges:
                 st.write(college)
-                if st.button(f"Show info about {college}"):
-                    google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                    redirect_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Click here for more info about {college}</button>'
-                    st.components.v1.html(redirect_html, height=50)
+                google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
+                redirect_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Click here for more info about {college}</button>'
+                st.components.v1.html(redirect_html, height=30)
 
 
 elif Merit is not None:
@@ -76,10 +74,9 @@ elif Merit is not None:
             st.write("Allotable Colleges:")
             for college in colleges:
                 st.write(college)
-                if st.button(f"Show info about {college}"):
-                    google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                    redirect_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Click here for more info about {college}</button>'
-                    st.components.v1.html(redirect_html, height=50)
+                google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
+                redirect_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Click here for more info about {college}</button>'
+                st.components.v1.html(redirect_html, height=30)
 
 else:
     st.write("Please provide either MHT-CET percentile or Merit No.")
