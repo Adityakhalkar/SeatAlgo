@@ -48,8 +48,8 @@ if percentile is not None:
             for college in colleges:
                 st.write(college)
                 google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                redirect_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Click here for more info about {college}</button>'
-                st.components.v1.html(redirect_html, height=30)
+                button_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Show info about {college}</button>'
+                st.markdown(button_html, unsafe_allow_html=True)
 
 
 elif Merit is not None:
@@ -75,8 +75,8 @@ elif Merit is not None:
             for college in colleges:
                 st.write(college)
                 google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                redirect_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Click here for more info about {college}</button>'
-                st.components.v1.html(redirect_html, height=30)
+                button_html = f'<button onclick="window.open(\'{google_search_url}\', \'_blank\')">Show info about {college}</button>'
+                st.markdown(button_html, unsafe_allow_html=True)
 
 else:
     st.write("Please provide either MHT-CET percentile or Merit No.")
