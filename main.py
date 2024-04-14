@@ -51,8 +51,8 @@ if percentile is not None:
                     if st.button(f"Show info about {college}"):
                         st.write(f"Redirecting to the Google search page for {college}...")
                         google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                        js_redirect = f"window.open('{google_search_url}', '_blank')"
-                        st.write(f'<script>{js_redirect}</script>', unsafe_allow_html=True)
+                        redirect_html = f'<meta http-equiv="refresh" content="0; URL={google_search_url}">'
+                        st.components.v1.html(redirect_html)
 
 
 elif Merit is not None:
@@ -80,8 +80,8 @@ elif Merit is not None:
                 if st.button(f"Show info about {college}"):
                     st.write(f"Redirecting to the Google search page for {college}...")
                     google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
-                    js_redirect = f"window.open('{google_search_url}', '_blank')"
-                    st.write(f'<script>{js_redirect}</script>', unsafe_allow_html=True)
+                    redirect_html = f'<meta http-equiv="refresh" content="0; URL={google_search_url}">'
+                    st.components.v1.html(redirect_html)
 
 
 else:
