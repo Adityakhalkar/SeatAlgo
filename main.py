@@ -2,21 +2,20 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-def introduction_page():
-    st.image("seatalgo.png", use_column_width=True)
-    # Description of the project
+st.image("seatalgo.png", use_column_width=True)
+# Description of the project
     
-    st.write("""
+st.write("""
 
         
         Guess no more, which college you will get is predicted by our model. 
         Check your Seat allocation status right now by clicking the below button.
-    """)
+""")
+# Center align the button
+if st.button("Next"):
+    main_project()
 
-    # Center align the button
-    if st.button("Next"):
-        main_project()
-    st.markdown('</div>', unsafe_allow_html=True)
+    
 # Read data
 def main_project():
     st.empty()
@@ -95,4 +94,4 @@ def main_project():
     
     else:
         st.write("Please provide either MHT-CET percentile or Merit No.")
-introduction_page()
+
