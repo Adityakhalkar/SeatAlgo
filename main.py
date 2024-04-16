@@ -4,6 +4,17 @@ import numpy as np
 
 # Define introduction page
 def introduction_page():
+    st.markdown(
+    """
+    <style>
+    .st-emotion-cache-1v0mbdj.e115fcil1 {
+        display: block;
+        margin: 0 auto;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     st.image("seatalgo.png", width=300)
     st.header("""
         Guess no more,:blue[college] selection is easy now.
@@ -14,12 +25,24 @@ def introduction_page():
     st.subheader("""
     Click the button below :arrow_down:
     """)
-    if st.button("Next"):
+    
+    if st.button("Next", type = 'primary'):
         st.session_state.page = "main_project"
         st.rerun()
 
 # Define main project page
 def main_project():
+    st.markdown(
+    """
+    <style>
+    .st-emotion-cache-1v0mbdj.e115fcil1 {
+        display: block;
+        margin: 0 auto;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     st.image("seatalgo.png", width=300)
     df = pd.read_csv('final_df2.csv')
     institute_names = pd.read_csv('institute codes.csv')
