@@ -6,7 +6,7 @@ import numpy as np
 def introduction_page():
     st.image("seatalgo.png", width=300)
     st.header("""
-        Guess no more, which :blue[college] selection is easy now.]
+        Guess no more,:blue[college] selection is easy now.
     """)
     st.header("""
     Check your :red[eligibility] status right now.
