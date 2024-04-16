@@ -95,10 +95,4 @@ def main_project():
     
     else:
         st.write("Please provide either MHT-CET percentile or Merit No.")
-def main():
-    # Display introduction page by default
-    introduction_page()
-
-# Run the Streamlit app
-if __name__ == "__main__":
-    main()
+introduction_page()
