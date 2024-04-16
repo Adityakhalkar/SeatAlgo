@@ -1,3 +1,6 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
 df = pd.read_csv('final_df2.csv')
 institute_names = pd.read_csv('institute codes.csv')
 institute_mapping = institute_names.set_index('code')['name'].to_dict()
