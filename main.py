@@ -7,7 +7,7 @@ st.set_page_config(page_title="Seat Algo", layout="wide")
 
 # Define introduction page
 def introduction_page():
-    st.image("seatalgo.png", use_column_width=True)
+    st.image("seatalgo.png")
     st.write("""
         Welcome to the Seat Allocation System!
         
@@ -23,6 +23,7 @@ def main_project():
     institute_names = pd.read_csv('institute codes.csv')
     institute_mapping = institute_names.set_index('code')['name'].to_dict()
     df['Institute Name'] = df['institute_code'].map(institute_mapping)
+    st.image("seatalgo.png")
 
     input_option = st.sidebar.radio("Choose Input Method", ("Percentile", "Merit No."))
 
