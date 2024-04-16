@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Set page configuration
-st.experimental_set_page_config(page_title="Seat Algo", layout="wide")
+st.set_page_config(page_title="Seat Algo", layout="wide")
 
 # Define introduction page
 def introduction_page():
