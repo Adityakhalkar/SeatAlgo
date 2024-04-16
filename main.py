@@ -22,9 +22,7 @@ def introduction_page():
     st.header("""
     Check your :red[eligibility] status right now.
     """)
-    st.subheader("""
-    :exclamation: Click the button below :arrow_down:
-    """)
+    
     st.markdown(
     """
     <style>
@@ -36,14 +34,17 @@ def introduction_page():
     """,
     unsafe_allow_html=True
 )
-    
-    if st.button("Next", type = 'primary'):
-        st.session_state.page = "main_project"
-        st.rerun()
     st.divider()
     st.write("""
     Students often find it difficult to find colleges after their entrance exams, due to various factors. To overcome this issue we made :Yellow[SeatAlgo] which helps students to find the colleges and branches they were unaware of. Potentially making students get better colleges.
 """)
+    st.subheader("""
+    :exclamation: Click the button below :arrow_down:
+    """)
+    if st.button("Next", type = 'primary'):
+        st.session_state.page = "main_project"
+        st.rerun()
+    
 
 
 # Define main project page
