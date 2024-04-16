@@ -3,38 +3,6 @@ import pandas as pd
 import numpy as np
 
 def introduction_page():
-    # Center align the content
-    st.markdown(
-        """
-        <style>
-        .center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 80vh; /* Adjust height as needed */
-        }
-        .btn-next {
-            background-color: #4CAF50; /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition-duration: 0.4s;
-        }
-        .btn-next:hover {
-            background-color: #45a049; /* Darker green */
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
     st.image("seatalgo.png", use_column_width=True)
     # Description of the project
     
@@ -46,9 +14,8 @@ def introduction_page():
     """)
 
     # Center align the button
-    st.markdown('<div class="center btn-next">', unsafe_allow_html=True)
     if st.button("Next"):
-        st.main_project()
+        main_project()
     st.markdown('</div>', unsafe_allow_html=True)
 # Read data
 def main_project():
