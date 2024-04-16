@@ -36,18 +36,18 @@ def introduction_page():
         unsafe_allow_html=True
     )
 
-    # Use expander for collapsible content
-    with st.expander("Welcome to the Seat Allocation System!", expanded=True):
-        st.image("seatalgo.png", use_column_width=True)
-        st.write("""
-            This system helps students choose colleges based on their MHT-CET Percentile or Merit No.
-            Simply select your input method and provide the required information to get started.
-        """)
-    
+    # Description of the project
+    st.write("""
+        Welcome to the Seat Allocation System!
+        
+        This system helps students choose colleges based on their MHT-CET Percentile or Merit No.
+        Simply select your input method and provide the required information to get started.
+    """)
+
     # Center align the button
     st.markdown('<div class="center">', unsafe_allow_html=True)
-    if st.button("Next", class_="btn-next"):
-        main_page()
+    if st.button("Next", key="next_button", help="Click to go to the main project", class_="btn-next"):
+        st.main_project()
     st.markdown('</div>', unsafe_allow_html=True)
 # Read data
 def main_project():
