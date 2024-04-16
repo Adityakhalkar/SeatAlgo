@@ -2,21 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.image("seatalgo.png", use_column_width=True)
-# Description of the project
-    
-st.write("""
-
-        
-        Guess no more, which college you will get is predicted by our model. 
-        Check your Seat allocation status right now by clicking the below button.
-""")
-# Center align the button
-if st.button("Next"):
-    main_project()
-
-    
-# Read data
 def main_project():
     st.empty()
     df = pd.read_csv('final_df2.csv')
@@ -95,3 +80,20 @@ def main_project():
     else:
         st.write("Please provide either MHT-CET percentile or Merit No.")
 
+
+
+st.image("seatalgo.png", use_column_width=True)
+# Description of the project
+    
+st.write("""
+
+        
+        Guess no more, which college you will get is predicted by our model. 
+        Check your Seat allocation status right now by clicking the below button.
+""")
+# Center align the button
+if st.button("Next"):
+    main_project()
+
+    
+# Read data
