@@ -59,6 +59,9 @@ def main_project():
         display: block;
         margin: 0 auto;
     }
+    p{
+    text-align: center;
+    }
     </style>
     """,
     unsafe_allow_html=True
