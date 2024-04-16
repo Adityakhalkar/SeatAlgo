@@ -39,8 +39,9 @@ def introduction_page():
     Students often find it difficult to find colleges after their entrance exams, due to various factors. To overcome this issue we made :Yellow[SeatAlgo] which helps students to find the colleges and branches they were unaware of. Potentially making students get better colleges.
 """)
     st.subheader("""
-    :exclamation: Click the button below :arrow_down:
+     Click the button below to predict your college!
     """)
+    st.divider()
     if st.button("Next", type = 'primary'):
         st.session_state.page = "main_project"
         st.rerun()
