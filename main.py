@@ -9,8 +9,8 @@ def introduction_page():
     st.write("""
 
         
-        This system helps students choose colleges based on their MHT-CET Percentile or Merit No.
-        Simply select your input method and provide the required information to get started.
+        Guess no more, which college you will get is predicted by our model. 
+        Check your Seat allocation status right now by clicking the below button.
     """)
 
     # Center align the button
@@ -19,12 +19,13 @@ def introduction_page():
     st.markdown('</div>', unsafe_allow_html=True)
 # Read data
 def main_project():
+    st.empty()
     df = pd.read_csv('final_df2.csv')
     institute_names = pd.read_csv('institute codes.csv')
     institute_mapping = institute_names.set_index('code')['name'].to_dict()
     df['Institute Name'] = df['institute_code'].map(institute_mapping)
     
-    st.title("Seat Algo")
+    st.image("seatalgo.png", use_column_width=True)
     
     input_option = st.sidebar.radio("Choose Input Method", ("Percentile", "Merit No."))
     
