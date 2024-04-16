@@ -2,9 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# Set page configuration
-st.set_page_config(page_title="Seat Algo", layout="wide", initial_sidebar_state="collapsed")
-
 # Define introduction page
 def introduction_page():
     st.image("seatalgo.png", width=300)
@@ -19,13 +16,14 @@ def introduction_page():
 
 # Define main project page
 def main_project():
+    st.image("seatalgo.png", width=300)
+    st.sidebar.button("Toggle Sidebar")
     df = pd.read_csv('final_df2.csv')
     institute_names = pd.read_csv('institute codes.csv')
     institute_mapping = institute_names.set_index('code')['name'].to_dict()
     df['Institute Name'] = df['institute_code'].map(institute_mapping)
-    st.image("seatalgo.png",  width=300)
 
-    input_option = st.sidebar.radio("Choose Input Method", ("Percentile", "Merit No."))
+    input_option = st.radio("Choose Input Method", ("Percentile", "Merit No."))
 
     # Input fields based on user choice
     if input_option == "Percentile":
