@@ -6,10 +6,13 @@ import numpy as np
 def introduction_page():
     st.image("seatalgo.png", width=300)
     st.header("""
-        :rainbow[Guess no more, which college you will get is predicted by our model.]
+        Guess no more, which :blue[college] selection is easy now.]
     """)
     st.header("""
-    :rainbow[Check your Seat allocation status right now by clicking the below button.]
+    Check your :red[eligibility] status right now.
+    """)
+    st.subheader("""
+    Click the button below :arrow_down:
     """)
     if st.button("Next"):
         st.session_state.page = "main_project"
