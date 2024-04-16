@@ -11,7 +11,7 @@ def introduction_page():
     """)
     st.header("""
     
-    rainbow[Check your Seat allocation status right now by clicking the below button.]
+    :rainbow[Check your Seat allocation status right now by clicking the below button.]
     """)
     if st.button("Next"):
         st.session_state.page = "main_project"
