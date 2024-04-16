@@ -34,11 +34,7 @@ def introduction_page():
     """,
     unsafe_allow_html=True
 )
-    st.divider()
-    st.write("""
-    Students often find it difficult to find colleges after their entrance exams, due to various factors. To overcome this issue we made SeatAlgo which helps students to find the colleges and branches they were unaware of. Potentially making students get better colleges.
-""")
-    st.divider()
+    
     st.subheader("""
      Click the button below to predict your college!
     """)
@@ -46,7 +42,11 @@ def introduction_page():
     if st.button("Next", type = 'primary'):
         st.session_state.page = "main_project"
         st.rerun()
-    
+    st.divider()
+    st.write("""
+    Students often find it difficult to find colleges after their entrance exams, due to various factors. To overcome this issue we made SeatAlgo which helps students to find the colleges and branches they were unaware of. Potentially making students get better colleges.
+""")
+    st.divider()
 
 
 # Define main project page
