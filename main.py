@@ -22,7 +22,7 @@ def main_project():
     institute_mapping = institute_names.set_index('code')['name'].to_dict()
     df['Institute Name'] = df['institute_code'].map(institute_mapping)
 
-    input_option = st.radio("Choose Input Method", ("Percentile", "Merit No."))
+    input_option = st.sidebar.radio("Choose Input Method", ("Percentile", "Merit No."))
 
     # Input fields based on user choice
     if input_option == "Percentile":
