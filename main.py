@@ -7,10 +7,8 @@ def introduction_page():
     st.image("seatalgo.png", width=300)
     st.header("""
         :rainbow[Guess no more, which college you will get is predicted by our model.]
-        
     """)
     st.header("""
-    
     :rainbow[Check your Seat allocation status right now by clicking the below button.]
     """)
     if st.button("Next"):
