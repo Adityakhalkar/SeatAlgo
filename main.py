@@ -11,6 +11,6 @@ st.write("""
 """)
 # Center align the button
 if st.button("Next"):
-    st.button.page_link("pages/app.py", label="Next")
+    st.page_link("pages/app.py")
 
 
