@@ -5,14 +5,17 @@ import numpy as np
 # Define introduction page
 def introduction_page():
     st.image("seatalgo.png", width=300)
-    st.write("""
-        Welcome to the Seat Allocation System!
+    st.header("""
+        :rainbow[Guess no more, which college you will get is predicted by our model.]
         
-        Guess no more, which college you will get is predicted by our model. 
-        Check your Seat allocation status right now by clicking the below button.
+    """)
+    st.header("""
+    
+    rainbow[Check your Seat allocation status right now by clicking the below button.]
     """)
     if st.button("Next"):
         st.session_state.page = "main_project"
+        st.rerun()
 
 # Define main project page
 def main_project():
