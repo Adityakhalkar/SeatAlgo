@@ -17,7 +17,6 @@ def introduction_page():
 # Define main project page
 def main_project():
     st.image("seatalgo.png", width=300)
-    st.sidebar.button("Toggle Sidebar")
     df = pd.read_csv('final_df2.csv')
     institute_names = pd.read_csv('institute codes.csv')
     institute_mapping = institute_names.set_index('code')['name'].to_dict()
