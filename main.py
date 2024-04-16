@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 def introduction_page():
-    st.image("seatalgo.svg", use_column_width=True)
+    st.image("seatalgo.png", use_column_width=True)
     st.write("""
         Welcome to the Seat Allocation System!
         
@@ -93,7 +93,7 @@ def main_project():
         st.write("Please provide either MHT-CET percentile or Merit No.")
 def main():
     # Display introduction page by default
-    introduction()
+    introduction_page()
 
 # Run the Streamlit app
 if __name__ == "__main__":
