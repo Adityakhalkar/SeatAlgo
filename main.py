@@ -34,11 +34,12 @@ def introduction_page():
     """,
     unsafe_allow_html=True
 )
+    st.divider()
     
     st.subheader("""
      Click the button below to predict your college!
     """)
-    
+    st.divider()
     if st.button("Next", type = 'primary'):
         st.session_state.page = "main_project"
         st.rerun()
