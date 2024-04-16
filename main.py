@@ -3,17 +3,52 @@ import pandas as pd
 import numpy as np
 
 def introduction_page():
-    st.image("seatalgo.png", use_column_width=True)
-    st.write("""
-        Welcome to the Seat Allocation System!
-        
-        This system helps students choose colleges based on their MHT-CET Percentile or Merit No.
-        Simply select your input method and provide the required information to get started.
-        
-        Click the 'Next' button to access the main project.
-    """)
-    if st.button("Next"):
-        st.main_project()
+    # Center align the content
+    st.markdown(
+        """
+        <style>
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh; /* Adjust height as needed */
+        }
+        .btn-next {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition-duration: 0.4s;
+        }
+        .btn-next:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Use beta_expander for collapsible content
+    with st.beta_expander("Welcome to the Seat Allocation System!", expanded=True):
+        st.image("seatalgo.png", use_column_width=True)
+        st.write("""
+            This system helps students choose colleges based on their MHT-CET Percentile or Merit No.
+            Simply select your input method and provide the required information to get started.
+        """)
+    
+    # Center align the button
+    st.markdown('<div class="center">', unsafe_allow_html=True)
+    if st.button("Next", class_="btn-next"):
+        st.experimental_rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
 # Read data
 def main_project():
     df = pd.read_csv('final_df2.csv')
