@@ -25,6 +25,17 @@ def introduction_page():
     st.subheader("""
     Click the button below :arrow_down:
     """)
+    st.markdown(
+    """
+    <style>
+    .st-emotion-cache-nbt3vv.ef3psqc13 {
+        display: block;
+        margin: 0 auto;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     
     if st.button("Next", type = 'primary'):
         st.session_state.page = "main_project"
