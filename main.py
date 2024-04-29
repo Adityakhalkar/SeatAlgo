@@ -24,9 +24,9 @@ def introduction_page():
     """)
 
     st.markdown(
-    """
+    """=
     <style>
-    .st-emotion-cache-q3uqly.ef3psqc13{
+    .st-emotion-cache-nbt3vv.ef3psqc13{
         display: block;
         margin: 0 auto;
     }
