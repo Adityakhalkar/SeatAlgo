@@ -1,30 +1,61 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import streamlit_authenticator as stauth
 from pymongo import MongoClient
-from streamlit_auth0 import login_button
 
-# Dummy MongoDB Atlas connection
+# MongoDB Atlas connection
 def get_db_connection():
-    # Replace the following with your MongoDB Atlas connection string
-    mongo_uri = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/test?retryWrites=true&w=majority"
+    mongo_uri = "mongodb+srv://khalkaraditya8:Kt56eKS07mX5dSSD@seatalgo.p8zlmgq.mongodb.net/?retryWrites=true&w=majority&appName=SeatAlgo"
     client = MongoClient(mongo_uri)
     db = client['seatalgo']  # Replace 'seatalgo' with your database name
     return db
 
-# Define introduction page
+# Set up MongoDB collection
+db = get_db_connection()
+users_collection = db['users']
+
+# Streamlit Authenticator setup
+auth_config = {
+    'credentials': {
+        'usernames': {}
+    },
+    'cookie': {
+        'name': 'auth_cookie',
+        'key': 'auth_key',
+        'expiry_days': 30
+    }
+}
+
+# Google login setup
+auth_config['credentials']['usernames'] = {
+    'google_user': {
+        'email': 'user@example.com',
+        'name': 'Google User',
+        'password': 'hashed_password'
+    }
+}
+
+authenticator = stauth.Authenticate(
+    auth_config['credentials'],
+    auth_config['cookie']['name'],
+    auth_config['cookie']['key'],
+    auth_config['cookie']['expiry_days']
+)
+
+# Introduction page
 def introduction_page():
     st.markdown(
-    """
-    <style>
-    .st-emotion-cache-1v0mbdj.e115fcil1 {
-        display: block;
-        margin: 0 auto;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+        """
+        <style>
+        .st-emotion-cache-1v0mbdj.e115fcil1 {
+            display: block;
+            margin: 0 auto;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     st.image("seatalgo.png", width=300)
     st.header("""
         Guess no more, :blue[college] selection is easy now.
@@ -33,23 +64,30 @@ def introduction_page():
     Check your :red[eligibility] status right now.
     """)
 
-    # Google login button
-    if 'user' not in st.session_state:
-        st.subheader("Please log in with Google to continue:")
-        login_button(auth_url="https://shinobiai.us.auth0.com/authorize", client_id="WBgvMfVIUpXLfmT8raq6NnuxgMTOCOq6")
-        return
+    # Google login
+    name, authentication_status, username = authenticator.login('Login', 'main')
+    if authentication_status:
+        user_email = authenticator.credentials[username]['email']
+        if users_collection.count_documents({'email': user_email}) == 0:
+            users_collection.insert_one({'email': user_email})
+        st.success(f"Welcome {name}")
+    elif authentication_status == False:
+        st.error("Username/password is incorrect")
+    elif authentication_status == None:
+        st.warning("Please enter your username and password")
+        st.stop()
 
     st.markdown(
-    """
-    <style>
-    .st-emotion-cache-q3uqly.ef3psqc13{
-        display: block;
-        margin: 0 auto;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+        """
+        <style>
+        .st-emotion-cache-q3uqly.ef3psqc13{
+            display: block;
+            margin: 0 auto;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     st.divider()
 
     st.subheader("""
@@ -62,25 +100,25 @@ def introduction_page():
     st.divider()
     st.write("""
     Students often find it difficult to find colleges after their entrance exams, due to various factors. To overcome this issue we made SeatAlgo which helps students to find the colleges and branches they were unaware of. Potentially making students get better colleges.
-""")
+    """)
     st.divider()
 
-# Define main project page
+# Main project page
 def main_project():
     st.markdown(
-    """
-    <style>
-    .st-emotion-cache-1v0mbdj.e115fcil1 {
-        display: block;
-        margin: 0 auto;
-    }
-    p{
-    text-align: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+        """
+        <style>
+        .st-emotion-cache-1v0mbdj.e115fcil1 {
+            display: block;
+            margin: 0 auto;
+        }
+        p{
+        text-align: center;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     st.image("seatalgo.png", width=300)
     df = pd.read_csv('final_df2.csv')
     institute_names = pd.read_csv('institute codes.csv')
