@@ -36,7 +36,7 @@ def introduction_page():
     # Google login button
     if 'user' not in st.session_state:
         st.subheader("Please log in with Google to continue:")
-        login_button(auth_url="https://<your-auth0-domain>/authorize", client_id="<your-client-id>", redirect_uri="<your-redirect-uri>")
+        login_button(auth_url="https://shinobiai.us.auth0.com/authorize", client_id="WBgvMfVIUpXLfmT8raq6NnuxgMTOCOq6")
         return
 
     st.markdown(
