@@ -6,9 +6,9 @@ from streamlit_oauth import OAuth2Callback
 
 # MongoDB Atlas connection
 def get_db_connection():
-    mongo_uri = "mongodb+srv://khalkaraditya8:Kt56eKS07mX5dSSD@seatalgo.p8zlmgq.mongodb.net/?retryWrites=true&w=majority&appName=SeatAlgo"
+    mongo_uri = "mongodb+srv://khalkaraditya8:Kt56eKS07mX5dSSD@seatalgo.p8zlmgq.mongodb.net/seatalgo?retryWrites=true&w=majority&appName=SeatAlgo"
     client = MongoClient(mongo_uri)
-    db = client['seatalgo']  # Replace 'seatalgo' with your database name
+    db = client.seatalgo  # Replace 'seatalgo' with your database name
     return db
 
 # Set up MongoDB collection
@@ -32,8 +32,8 @@ def introduction_page():
         unsafe_allow_html=True
     )
     st.image("seatalgo.png", width=300)
-    st.header("Guess no more, :blue[college] selection is easy now.")
-    st.header("Check your :red[eligibility] status right now.")
+    st.header("Guess no more, :blue[College] selection is easy now.")
+    st.header("Check your :red[Eligibility] status right now.")
 
     # Google login
     if not oauth.logged_in:
@@ -49,7 +49,7 @@ def introduction_page():
     st.markdown(
         """
         <style>
-        .st-emotion-cache-q3uqly.ef3psqc13{
+        .st-emotion-cache-q3uqly.ef3psqc13 {
             display: block;
             margin: 0 auto;
         }
@@ -61,9 +61,9 @@ def introduction_page():
 
     st.subheader("Click the button below to predict your college!")
     st.divider()
-    if st.button("Next", type='primary'):
+    if st.button("Next", key="next_button", type='primary'):
         st.session_state.page = "main_project"
-        st.rerun()
+        st.experimental_rerun()
     st.divider()
     st.write(
         """
@@ -83,8 +83,8 @@ def main_project():
             display: block;
             margin: 0 auto;
         }
-        p{
-        text-align: center;
+        p {
+            text-align: center;
         }
         </style>
         """,
@@ -116,15 +116,17 @@ def main_project():
             "Select your Category: ",
             df['Category'].unique(),
             index=None,
+            key="category_percentile",
             placeholder="Select Category",
         )
         st.write("You selected:", category)
         branch = st.multiselect(
             "Enter your preferred branch",
             np.sort(df['branch_name'].unique()),
-            max_selections=5
+            max_selections=5,
+            key="branch_percentile"
         )
-        if st.button("Submit", type="primary"):
+        if st.button("Submit", key="submit_percentile", type="primary"):
             colleges = df['Institute Name'][(df['MHT-CET Score'] < percentile) & (df['Category'] == category) & (
                         df['branch_name'].isin(branch))].unique()
             if len(colleges) == 0:
@@ -141,15 +143,17 @@ def main_project():
             "Select your Category: ",
             df['Category'].unique(),
             index=None,
+            key="category_merit",
             placeholder="Select Category",
         )
         st.write("You selected:", category)
         branch = st.multiselect(
             "Enter your preferred branch",
             np.sort(df['branch_name'].unique()),
-            max_selections=5
+            max_selections=5,
+            key="branch_merit"
         )
-        if st.button("Submit", type="primary"):
+        if st.button("Submit", key="submit_merit", type="primary"):
             colleges = df['Institute Name'][(df['Merit No.'] < Merit) & (df['Category'] == category) & (
                         df['branch_name'].isin(branch))].unique()
             if len(colleges) == 0:
