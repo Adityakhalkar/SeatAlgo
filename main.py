@@ -1,6 +1,16 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from pymongo import MongoClient
+from streamlit_auth0 import login_button
+
+# Dummy MongoDB Atlas connection
+def get_db_connection():
+    # Replace the following with your MongoDB Atlas connection string
+    mongo_uri = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/test?retryWrites=true&w=majority"
+    client = MongoClient(mongo_uri)
+    db = client['seatalgo']  # Replace 'seatalgo' with your database name
+    return db
 
 # Define introduction page
 def introduction_page():
@@ -23,6 +33,12 @@ def introduction_page():
     Check your :red[eligibility] status right now.
     """)
 
+    # Google login button
+    if 'user' not in st.session_state:
+        st.subheader("Please log in with Google to continue:")
+        login_button(auth_url="https://<your-auth0-domain>/authorize", client_id="<your-client-id>", redirect_uri="<your-redirect-uri>")
+        return
+
     st.markdown(
     """
     <style>
@@ -40,7 +56,7 @@ def introduction_page():
      Click the button below to predict your college!
     """)
     st.divider()
-    if st.button("Next", type = 'primary'):
+    if st.button("Next", type='primary'):
         st.session_state.page = "main_project"
         st.rerun()
     st.divider()
@@ -48,7 +64,6 @@ def introduction_page():
     Students often find it difficult to find colleges after their entrance exams, due to various factors. To overcome this issue we made SeatAlgo which helps students to find the colleges and branches they were unaware of. Potentially making students get better colleges.
 """)
     st.divider()
-
 
 # Define main project page
 def main_project():
@@ -111,7 +126,6 @@ def main_project():
                     st.write(college)
                     google_search_url = f"https://www.google.com/search?q={college.replace(' ', '+')}"
                     st.info(f"[Show info about {college}]({google_search_url})")
-
 
     elif Merit is not None:
         category = st.selectbox(
