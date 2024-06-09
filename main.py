@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import streamlit_authenticator as stauth
 from pymongo import MongoClient
+from streamlit_oauth import OAuth2Callback
 
 # MongoDB Atlas connection
 def get_db_connection():
@@ -15,35 +15,10 @@ def get_db_connection():
 db = get_db_connection()
 users_collection = db['users']
 
-# Streamlit Authenticator setup
-auth_config = {
-    'credentials': {
-        'usernames': {}
-    },
-    'cookie': {
-        'name': 'auth_cookie',
-        'key': 'auth_key',
-        'expiry_days': 30
-    }
-}
+# Initialize OAuth2 callback
+oauth = OAuth2Callback()
 
-# Google login setup
-auth_config['credentials']['usernames'] = {
-    'google_user': {
-        'email': 'user@example.com',
-        'name': 'Google User',
-        'password': 'hashed_password'
-    }
-}
-
-authenticator = stauth.Authenticate(
-    auth_config['credentials'],
-    auth_config['cookie']['name'],
-    auth_config['cookie']['key'],
-    auth_config['cookie']['expiry_days']
-)
-
-# Introduction page
+# Define introduction page
 def introduction_page():
     st.markdown(
         """
@@ -57,25 +32,19 @@ def introduction_page():
         unsafe_allow_html=True
     )
     st.image("seatalgo.png", width=300)
-    st.header("""
-        Guess no more, :blue[college] selection is easy now.
-    """)
-    st.header("""
-    Check your :red[eligibility] status right now.
-    """)
+    st.header("Guess no more, :blue[college] selection is easy now.")
+    st.header("Check your :red[eligibility] status right now.")
 
     # Google login
-    name, authentication_status, username = authenticator.login('Login', 'main')
-    if authentication_status:
-        user_email = authenticator.credentials[username]['email']
-        if users_collection.count_documents({'email': user_email}) == 0:
-            users_collection.insert_one({'email': user_email})
-        st.success(f"Welcome {name}")
-    elif authentication_status == False:
-        st.error("Username/password is incorrect")
-    elif authentication_status == None:
-        st.warning("Please enter your username and password")
+    if not oauth.logged_in:
+        oauth.login_button("Log in with Google")
         st.stop()
+    else:
+        user_info = oauth.user_info
+        user_email = user_info["email"]
+        if users_collection.count_documents({"email": user_email}) == 0:
+            users_collection.insert_one({"email": user_email})
+        st.success(f"Welcome {user_info['name']}")
 
     st.markdown(
         """
@@ -90,20 +59,22 @@ def introduction_page():
     )
     st.divider()
 
-    st.subheader("""
-     Click the button below to predict your college!
-    """)
+    st.subheader("Click the button below to predict your college!")
     st.divider()
     if st.button("Next", type='primary'):
         st.session_state.page = "main_project"
         st.rerun()
     st.divider()
-    st.write("""
-    Students often find it difficult to find colleges after their entrance exams, due to various factors. To overcome this issue we made SeatAlgo which helps students to find the colleges and branches they were unaware of. Potentially making students get better colleges.
-    """)
+    st.write(
+        """
+        Students often find it difficult to find colleges after their entrance exams, due to various factors.
+        To overcome this issue we made SeatAlgo which helps students to find the colleges and branches they were unaware of.
+        Potentially making students get better colleges.
+        """
+    )
     st.divider()
 
-# Main project page
+# Define main project page
 def main_project():
     st.markdown(
         """
